@@ -7,6 +7,8 @@ TEMP_FILE_PATH="/tmp/logFilesList"
 ls -ld ${LOGS_PATH}/* | awk '{print $9}' | egrep '.*\.log$' > $TEMP_FILE_PATH
 # step2:
 cat $TEMP_FILE_PATH | xargs egrep -w -c '[_0-9]*ERROR[_0-9]*' | sed 's/:/ - /g'
+# NOTE: the ERROR regex is to avoid alphabetic words containing 'ERROR' unlike the work itself
+
 # rm -f $TEMP_FILE_PATH  # COMMENTED OUT IN CASE YOU"D LIKE TO EXAMINE THE TEMP FILE
 
 # NOTE:
