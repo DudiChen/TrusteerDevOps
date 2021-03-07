@@ -6,7 +6,6 @@ def inject_config_content():
     config_file_location = "/data/python/config.json"
     with open(config_file_location, "r+") as config_file:
         config_data = json.load(config_file)
-        # config_data = {}
         url = config_data["url"]
         content_value = get_content_value_by_url(url)
         config_data["content"] = content_value
