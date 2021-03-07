@@ -35,7 +35,7 @@ def extract_log_entry_data(line : str):
                 .*request_length:\ (?P<request_length>.*)\ }}
                 """, flags=re.X)
     result = data_extract_pattern.search(line).groupdict()
-    result["timestamp_date"] = re.match(r'(\d{4}-\d{2}-\d{2})', result["timestamp"])
+    result["timestamp_date"] = re.match(r'(\d{4}-\d{2}-\d{2})', result["timestamp"])[0]
 
     return result
 
