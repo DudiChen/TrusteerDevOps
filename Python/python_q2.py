@@ -10,9 +10,11 @@ def run_filter():
             for line in log_file:
                 stripped_line = line.strip()
                 data_dict = extract_log_entry_data(stripped_line)
-                classes_matched,filtered_data = filter_data_by_classification(data_dict)
-                if classes_matched not in result: result[classes_matched] = []
-                result[classes_matched].append(filtered_data)
+                returned_data = filter_data_by_classification(data_dict)
+                if returned_data:
+                    classes_matched, filtered_data = returned_data
+                    if classes_matched not in result: result[classes_matched] = []
+                    result[classes_matched].append(filtered_data)
     except FileNotFoundError:
         print("ERROR - couldn't find the file: " + log_file_location)
     except IOError:
@@ -70,7 +72,11 @@ def filter_data_by_classification(data : dict):
         if "request_length" not in res_data: res_data["request_length"] = data["request_length"]
         if "remote_address" not in res_data: res_data["remote_address"] = data["remote_address"]
 
-    result = (','.join(classes_matched), res_data)
+    if classes_matched:
+        result = (','.join(classes_matched), res_data)
+    else:
+        result = None
+
     return result
 
 
