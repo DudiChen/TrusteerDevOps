@@ -5,14 +5,18 @@ import re
 def run_filter():
     log_file_location = "/tmp/mylogfile.log"
     result = {}
-    with open(log_file_location) as log_file:
-        for line in log_file:
-            stripped_line = line.strip()
-            data_dict = extract_log_entry_data(stripped_line)
-            classes_matched,filtered_data = filter_data_by_classification(data_dict)
-            if classes_matched not in result: result[classes_matched] = []
-            result[classes_matched].append(filtered_data)
-
+    try:
+        with open(log_file_location, "r") as log_file:
+            for line in log_file:
+                stripped_line = line.strip()
+                data_dict = extract_log_entry_data(stripped_line)
+                classes_matched,filtered_data = filter_data_by_classification(data_dict)
+                if classes_matched not in result: result[classes_matched] = []
+                result[classes_matched].append(filtered_data)
+    except FileNotFoundError:
+        print("ERROR - couldn't find the file: " + log_file_location)
+    except IOError:
+        print("ERROR - couldn't read the file: " + log_file_location)
     json_output = json.dumps(result, indent=4)
     print(json_output)
 
