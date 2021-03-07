@@ -5,10 +5,11 @@ from flask import request, jsonify
 
 def inject_config_content():
     config_file_location = "/data/python/config.json"
-
-    config_file = open(config_file_location, "r")
-    config_data = json.load(config_file)
-    config_file.close()
+    # config_file = open(config_file_location, "r")
+    # config_data = json.load(config_file)
+    # config_file.close()
+    with open(config_file_location, "r") as config_file:
+        config_data = json.load(config_file)
     req_url = config_data["url"]
     content_value = get_content_value_by_url(req_url)
     # print("TEST: " + content_value)
