@@ -23,7 +23,7 @@ def inject_config_content():
 def get_content_value_by_url(content_url):
     # # req_params = {}
     content_length = 15
-    response = request.get(url=content_url)
+    response = requests.get(url=content_url)
     # req_params = {'lastdays': 30}
     # response = requests.get(url=content_url, params=req_params)
     # TEST:
