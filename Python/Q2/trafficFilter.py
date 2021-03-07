@@ -44,7 +44,7 @@ def filter_data_by_classification(data : dict):
     res_data = {}
     is_match_case_a = data["status"] == "200" and ip_range_pattern.match(data["remote_address"])
     is_match_case_b = float(data["request_time"]) > 1.0 and data["request_type"] == "POST"
-    is_match_case_c = data["date"] == "2020-07-01" and hour_range_pattern.match(data["timestamp"])
+    is_match_case_c = data["timestamp_date"] == "2020-07-01" and hour_range_pattern.match(data["timestamp"])
 
     classes_matched = set()
 
@@ -65,7 +65,7 @@ def filter_data_by_classification(data : dict):
         res_data["request_time"] = data["request_time"]
         if "request_length" not in res_data: res_data["request_length"] = data["request_length"]
         if "remote_address" not in res_data: res_data["remote_address"] = data["remote_address"]
-    
+
     result = (','.join(classes_matched), res_data)
     return result
 
