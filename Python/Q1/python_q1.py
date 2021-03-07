@@ -5,19 +5,31 @@ from flask import request, jsonify
 
 def inject_config_content():
     config_file_location = "/data/python/config.json"
-    with open(config_file_location, "r+") as config_file:
-        config_data = json.load(config_file)
-        req_url = config_data["url"]
-        # # -------------------v
-        # country = "Israel"
-        # server_url = "https://corona.lmao.ninja/v2/"
-        # historical_request_suffix = "historical/"
-        # req_url = server_url + historical_request_suffix + country
-        # # -------------------^
-        content_value = get_content_value_by_url(req_url)
-        print("TEST: " + content_value)
-        config_data["content"] = content_value
+
+    config_file = open(config_file_location, "r")
+    config_data = json.load(config_file)
+    config_file.close()
+    req_url = config_data["url"]
+    content_value = get_content_value_by_url(req_url)
+    # print("TEST: " + content_value)
+    config_data["content"] = content_value
+    with open(config_file_location, "w") as config_file:
         json.dump(config_data, config_file)
+
+    # with open(config_file_location, "r+") as config_file:
+    #     config_data = json.load(config_file)
+    #     req_url = config_data["url"]
+    #     # # -------------------v
+    #     # country = "Israel"
+    #     # server_url = "https://corona.lmao.ninja/v2/"
+    #     # historical_request_suffix = "historical/"
+    #     # req_url = server_url + historical_request_suffix + country
+    #     # # -------------------^
+    #     content_value = get_content_value_by_url(req_url)
+    #     # print("TEST: " + content_value)
+    #     config_data["content"] = content_value
+    #     config_file.seek(0)
+    #     json.dump(config_data, config_file)
 
 
 def get_content_value_by_url(content_url):
