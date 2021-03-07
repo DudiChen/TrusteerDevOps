@@ -1,6 +1,5 @@
 import json
 import requests
-from flask import request, jsonify
 
 
 def inject_config_content():
@@ -25,14 +24,8 @@ def inject_config_content():
 
 
 def get_content_value_by_url(content_url):
-    # # req_params = {}
     content_length = 15
     response = requests.get(url=content_url)
-    # req_params = {'lastdays': 30}
-    # response = requests.get(url=content_url, params=req_params)
-    # TEST:
-    # print("TYPE: " + str(type(response.text)))
-    # print(str(response.text))
 
     return response.text[:content_length]
 
