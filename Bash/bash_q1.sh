@@ -12,7 +12,7 @@ if [[ -d $LOGS_PATH ]]; then
 
   # rm -f $TEMP_FILE_PATH  # COMMENTED OUT IN CASE YOU"D LIKE TO EXAMINE THE TEMP FILE
 else
-  echo "ERROR: Couldn't find the directory under the path giver: ${$LOGS_PATH}"
+  echo "ERROR: Couldn't find the directory under the path giver: $LOGS_PATH"
 fi
 
 # NOTE:
