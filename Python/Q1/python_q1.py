@@ -15,7 +15,7 @@ def inject_config_content():
         req_url = server_url + historical_request_suffix + country
         # -------------------^
         content_value = get_content_value_by_url(req_url)
-        print("TEST:" + content_value)
+        print("TEST: " + content_value)
         config_data["content"] = content_value
         json.dump(config_data, config_file)
 
@@ -26,6 +26,9 @@ def get_content_value_by_url(content_url):
     # response = request.get(url=content_url)
     req_params = {'lastdays': 30}
     response = requests.get(url=content_url, params=req_params)
+    # TEST:
+    print("TYPE: " + type(response))
+    print(response)
 
     return response[:content_length]
 
