@@ -41,7 +41,7 @@ def filter_data_by_classification(data : dict):
     hour_range_pattern = re.compile(r"""
     .*T(1(?:8\:\d\d\:\d\d\+\d\d\:|9:00:00\+00\:00))
     """, flags=re.X)
-    result = {}
+    res_data = {}
     is_match_case_a = data["status"] == "200" and ip_range_pattern.match(data["remote_address"])
     is_match_case_b = float(data["request_time"]) > 1.0 and data["request_type"] == "POST"
     is_match_case_c = data["date"] == "2020-07-01" and hour_range_pattern.match(data["timestamp"])
@@ -50,23 +50,24 @@ def filter_data_by_classification(data : dict):
 
     if is_match_case_a:
         classes_matched.add('A')
-        result["time_of_request"] = data["timestamp"]
-        result["url"] = data["url"]
-        result["user_agent"] = data["user_agent"]
+        res_data["time_of_request"] = data["timestamp"]
+        res_data["url"] = data["url"]
+        res_data["user_agent"] = data["user_agent"]
 
     if is_match_case_b:
         classes_matched.add('B')
-        result["remote_address"] = data["remote_address"]
-        if "url" not in result: result["url"] = data["url"]
-        result["request_length"] = data["request_length"]
+        res_data["remote_address"] = data["remote_address"]
+        if "url" not in res_data: res_data["url"] = data["url"]
+        res_data["request_length"] = data["request_length"]
 
     if is_match_case_c:
         classes_matched.add('C')
-        result["request_time"] = data["request_time"]
-        if "request_length" not in result: result["request_length"] = data["request_length"]
-        if "remote_address" not in result: result["remote_address"] = data["remote_address"]
-
-    return ','.join(classes_matched), result
+        res_data["request_time"] = data["request_time"]
+        if "request_length" not in res_data: res_data["request_length"] = data["request_length"]
+        if "remote_address" not in res_data: res_data["remote_address"] = data["remote_address"]
+    
+    result = (','.join(classes_matched), res_data)
+    return result
 
 
 if __name__ == '__main__':
