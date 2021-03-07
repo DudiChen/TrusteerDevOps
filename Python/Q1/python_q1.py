@@ -27,8 +27,8 @@ def get_content_value_by_url(content_url):
     req_params = {'lastdays': 30}
     response = requests.get(url=content_url, params=req_params)
     # TEST:
-    print("TYPE: " + type(response))
-    print(response)
+    print("TYPE: " + str(type(response)))
+    print(str(response))
 
     return response[:content_length]
 
